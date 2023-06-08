@@ -44,7 +44,7 @@ fun Item(
             fontWeight = FontWeight.Bold,
         )
         Text(
-            text = stringResource(R.string.required_point, requiredPoint),
+            text = stringResource(R.string.required_price, requiredPoint),
             color = MaterialTheme.colorScheme.secondary,
         )
     }
@@ -55,7 +55,7 @@ fun Item(
 fun RewardItemPreview() {
     ShopCornerTheme() {
         Item(
-            image = R.drawable.reward_1,
+            image = R.drawable.item_1,
             title = stringResource(R.string.text_dummy),
             requiredPoint = 4000
         )
