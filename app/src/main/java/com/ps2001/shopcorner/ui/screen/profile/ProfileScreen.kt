@@ -39,7 +39,7 @@ fun ProfileScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(R.drawable.img),
+                painter = painterResource(R.drawable.profile),
                 contentDescription = stringResource(R.string.desc_about),
                 contentScale = ContentScale.Crop,
                 modifier = modifier
