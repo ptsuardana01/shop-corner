@@ -67,6 +67,7 @@ fun DetailScreen(
                 DetailContent(
                     data.item.image,
                     data.item.title,
+                    data.item.desc,
                     data.item.price,
                     data.count,
                     onBackClick = navigateBack,
@@ -86,6 +87,7 @@ fun DetailScreen(
 fun DetailContent(
     @DrawableRes image: Int,
     title: String,
+    desc: String,
     price: Int,
     count: Int,
     onBackClick: () -> Unit,
@@ -138,7 +140,7 @@ fun DetailContent(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = stringResource(R.string.lorem_ipsum),
+                    text = desc,
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Justify,
                     modifier = modifier.padding(vertical = 16.dp)
@@ -182,6 +184,7 @@ fun DetailContentPreview() {
         DetailContent(
             R.drawable.item_4,
             "Testing Item title",
+            "Refreshes the air quality, prevents bacterial invasion and adjusts the room temperature, Provides a clean hydrating mist which keeps skin healthy, moist and relieves its dryness, Releases moisture from the air and helps in breathing activity that promote a better sleep and working experience",
             7500,
             1,
             onBackClick = {},

@@ -2,7 +2,7 @@
     <string name="app_name">Shop Corner</string>
     <string name="menu_home">Home</string>
     <string name="menu_cart">Keranjang</string>
-    <string name="menu_profile">Profile</string>
+    <string name="about_page">Profile</string>
     <string name="required_price">Rp. %d</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
     <string name="minus_symbol">—</string>
@@ -12,5 +12,8 @@
     <string name="back">Back</string>
     <string name="text_dummy">Dummy Reward</string>
     <string name="share_message">Hey, I just wanted to place an order for Rp.%d at Shop Corner, do you want to place an order too?</string>
-    <string name="shop_corener">Shop Corner</string>
+    <string name="shop_corner">Shop Corner</string>
+    <string name="desc_about">Me</string>
+    <string name="about_name">Putu Suardana</string>
+    <string name="about_contact">a308dsx2024@bangkit.academy</string>
 </resources>

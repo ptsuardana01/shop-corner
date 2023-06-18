@@ -105,14 +105,14 @@ fun ShopCornerApp(
 private fun shareOrder(context: Context, summary: String) {
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
-        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shop_corener))
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shop_corner))
         putExtra(Intent.EXTRA_TEXT, summary)
     }
 
     context.startActivity(
         Intent.createChooser(
             intent,
-            context.getString(R.string.shop_corener)
+            context.getString(R.string.shop_corner)
         )
     )
 }
@@ -139,7 +139,7 @@ private fun BottomBar(
                 screen = Screen.Cart
             ),
             NavigationItem(
-                title = stringResource(R.string.menu_profile),
+                title = stringResource(R.string.about_page),
                 icon = Icons.Default.AccountCircle,
                 screen = Screen.Profile
             ),
