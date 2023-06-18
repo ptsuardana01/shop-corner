@@ -1,5 +1,7 @@
 package com.ps2001.shopcorner
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -12,22 +14,26 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.ps2001.shopcorner.ui.navigation.NavigationItem
 import com.ps2001.shopcorner.ui.navigation.Screen
 import com.ps2001.shopcorner.ui.screen.cart.CartScreen
+import com.ps2001.shopcorner.ui.screen.detail.DetailScreen
 import com.ps2001.shopcorner.ui.screen.home.HomeScreen
 import com.ps2001.shopcorner.ui.screen.profile.ProfileScreen
-import androidx.compose.runtime.getValue
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ps2001.shopcorner.ui.theme.ShopCornerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,9 +42,14 @@ fun ShopCornerApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Scaffold(
         bottomBar = {
-            BottomBar(navController)
+            if (currentRoute != Screen.DetailItem.route) {
+                BottomBar(navController)
+            }
         },
         modifier = modifier
     ) { innerPadding ->
@@ -48,22 +59,68 @@ fun ShopCornerApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    navigationDetail = { itemId ->
+                        navController.navigate(Screen.DetailItem.createRoute(itemId))
+                    }
+                )
             }
             composable(Screen.Cart.route) {
-                CartScreen()
+                val context = LocalContext.current
+                CartScreen(
+                    onOrderButtonClicked = { message ->
+                        shareOrder(context, message)
+                    }
+                )
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
+            }
+            composable(
+                route = Screen.DetailItem.route,
+                arguments = listOf(navArgument("itemId") { type = NavType.LongType }),
+            ) {
+                val id = it.arguments?.getLong("itemId") ?: -1L
+                DetailScreen(
+                    itemId = id,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
+                    navigateCart = {
+                        navController.popBackStack()
+                        navController.navigate(Screen.Cart.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
             }
         }
     }
 }
 
+private fun shareOrder(context: Context, summary: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shop_corener))
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
+
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            context.getString(R.string.shop_corener)
+        )
+    )
+}
+
 @Composable
 private fun BottomBar(
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     NavigationBar(
         modifier = modifier,

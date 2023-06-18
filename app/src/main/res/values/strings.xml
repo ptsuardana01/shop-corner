@@ -11,4 +11,6 @@
     <string name="total_order">Total pesanan : Rp. %d</string>
     <string name="back">Back</string>
     <string name="text_dummy">Dummy Reward</string>
+    <string name="share_message">Hey, I just wanted to place an order for Rp.%d at Shop Corner, do you want to place an order too?</string>
+    <string name="shop_corener">Shop Corner</string>
 </resources>
