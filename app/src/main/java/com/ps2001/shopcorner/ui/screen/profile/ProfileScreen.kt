@@ -1,4 +1,4 @@
-package com.ps2001.shopcorner.ui.screen.detail
+package com.ps2001.shopcorner.ui.screen.profile
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,8 +10,13 @@ import androidx.compose.ui.res.stringResource
 import com.ps2001.shopcorner.R
 
 @Composable
-fun DetailScreen(
+fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
-
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(stringResource(R.string.menu_profile))
+    }
 }
